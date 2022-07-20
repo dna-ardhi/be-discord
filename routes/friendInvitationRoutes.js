@@ -9,11 +9,29 @@ const postFriendInvitationSchema = Joi.object({
   targetEmail: Joi.string().email(),
 });
 
+const inviteDecisionSchema = Joi.object({
+  id: Joi.string().required(),
+});
+
 router.post(
   '/invite',
   auth,
   validator.body(postFriendInvitationSchema),
   friends.controllers.postInvite
+);
+
+router.post(
+  '/accept',
+  auth,
+  validator.body(inviteDecisionSchema),
+  friends.controllers.postAccept
+);
+
+router.post(
+  '/reject',
+  auth,
+  validator.body(inviteDecisionSchema),
+  friends.controllers.postReject
 );
 
 module.exports = router;
